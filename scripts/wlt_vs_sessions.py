@@ -45,6 +45,10 @@ def main():
     mkdir(RESULT_DIR)
     all_systems = systems.select().where(not_(systems.c.name.in_(NOT_PARTICIPATED))).execute().fetchall()
     for system in all_systems:
+
+        result_dir_sys = os.path.join(RESULT_DIR, system.name)
+        mkdir(result_dir_sys)
+
         cnt = 0
         wlt = {}
 
@@ -79,18 +83,18 @@ def main():
                 # df[['win', 'loss', 'tie']].plot()
                 # ax = df['outcome'].plot(secondary_y=True)
                 plt.title(' - '.join([system.name, 'Cumulative Wins, Losses, and Ties + Outcome']))
-                plt.savefig(os.path.join(RESULT_DIR, '_'.join([system.name, 'wlt_vs_sessions_outcome.pdf'])),
+                plt.savefig(os.path.join(result_dir_sys, '_'.join([system.name, 'wlt_vs_sessions_outcome.pdf'])),
                             format='pdf', bbox_inches='tight')
-                plt.savefig(os.path.join(RESULT_DIR, '_'.join([system.name, 'wlt_vs_sessions_outcome.svg'])),
+                plt.savefig(os.path.join(result_dir_sys, '_'.join([system.name, 'wlt_vs_sessions_outcome.svg'])),
                             format='svg', bbox_inches='tight')
                 plt.show()
 
             else:
                 df.transpose().cumsum().plot.line()
                 plt.title(' - '.join([system.name, 'Cumulative Wins, Losses, and Ties']))
-                plt.savefig(os.path.join(RESULT_DIR, '_'.join([system.name, 'wlt_vs_sessions.pdf'])),
+                plt.savefig(os.path.join(result_dir_sys, '_'.join([system.name, 'wlt_vs_sessions.pdf'])),
                             format='pdf', bbox_inches='tight')
-                plt.savefig(os.path.join(RESULT_DIR, '_'.join([system.name, 'wlt_vs_sessions.svg'])),
+                plt.savefig(os.path.join(result_dir_sys, '_'.join([system.name, 'wlt_vs_sessions.svg'])),
                             format='svg', bbox_inches='tight')
                 plt.show()
 

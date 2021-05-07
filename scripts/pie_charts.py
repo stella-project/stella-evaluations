@@ -5,11 +5,13 @@ from matplotlib import pyplot as plt
 import seaborn as sns
 sns.set_style('darkgrid')
 
-STATS_CSV = 'results/overall_stats.csv'
+STATS_CSV = os.path.join(RESULT_DIR, 'overall_stats.csv')
 df = pd.read_csv(STATS_CSV, index_col=0)
 
 for row in df.iterrows():
     system_name = row[0]
+    result_dir_sys = os.path.join(RESULT_DIR, system_name)
+    mkdir(result_dir_sys)
     df.from_dict({row[0]:
                       {'Win': row[1]['Win'],
                        'Loss': row[1]['Loss'],
@@ -19,9 +21,9 @@ for row in df.iterrows():
     centre_circle = plt.Circle((0, 0), 0.50, fc='white')
     fig = plt.gcf()
     fig.gca().add_artist(centre_circle)
-    plt.savefig(os.path.join(RESULT_DIR, '_'.join([system_name, 'pie.pdf'])),
+    plt.savefig(os.path.join(result_dir_sys, '_'.join([system_name, 'pie.pdf'])),
                              format='pdf', bbox_inches='tight')
-    plt.savefig(os.path.join(RESULT_DIR, '_'.join([system_name, 'pie.svg'])),
+    plt.savefig(os.path.join(result_dir_sys, '_'.join([system_name, 'pie.svg'])),
                              format='svg', bbox_inches='tight')
 
     plt.show()

@@ -12,12 +12,13 @@ from reportlab.platypus import Table
 
 def make_report(system_name):
 
-    overall_stats = pd.read_csv('../../stella-server/eval/results/overall_stats.csv', index_col=0)
+    overall_stats = pd.read_csv(os.path.join(RESULT_DIR, 'overall_stats.csv'), index_col=0)
+    sys_path = os.path.join(RESULT_DIR, system_name)
 
-    c = canvas.Canvas(os.path.join('results', '_'.join([system_name, 'report.pdf'])), pagesize=A4)
+    c = canvas.Canvas(os.path.join(sys_path, '_'.join([system_name, 'report.pdf'])), pagesize=A4)
 
     # pie chart
-    drawing = svg2rlg(os.path.join('results', '_'.join([system_name, 'pie.svg'])))
+    drawing = svg2rlg(os.path.join(sys_path, '_'.join([system_name, 'pie.svg'])))
     sx = sy = 0.9
     drawing.width, drawing.height = drawing.minWidth() * sx, drawing.height * sy
     drawing.scale(sx, sy)
@@ -25,7 +26,7 @@ def make_report(system_name):
     renderPDF.draw(drawing, c, x, y, showBoundary=False)
 
     # WLT vs. Time chart
-    drawing = svg2rlg(os.path.join('results', '_'.join([system_name, 'wlt_vs_time.svg'])))
+    drawing = svg2rlg(os.path.join(sys_path, '_'.join([system_name, 'wlt_vs_time.svg'])))
     sx = sy = 0.9
     drawing.width, drawing.height = drawing.minWidth() * sx, drawing.height * sy
     drawing.scale(sx, sy)
@@ -36,7 +37,7 @@ def make_report(system_name):
 
 
     # WLT vs. Time chart (with outcomes)
-    drawing = svg2rlg(os.path.join('results', '_'.join([system_name, 'wlt_vs_time_outcome.svg'])))
+    drawing = svg2rlg(os.path.join(sys_path, '_'.join([system_name, 'wlt_vs_time_outcome.svg'])))
     sx = sy = 0.9
     drawing.width, drawing.height = drawing.minWidth() * sx, drawing.height * sy
     drawing.scale(sx, sy)
@@ -44,7 +45,7 @@ def make_report(system_name):
     renderPDF.draw(drawing, c, x, y, showBoundary=False)
 
     # WLT vs. Sessions chart (with outcomes)
-    drawing = svg2rlg(os.path.join('results', '_'.join([system_name, 'wlt_vs_sessions_outcome.svg'])))
+    drawing = svg2rlg(os.path.join(sys_path, '_'.join([system_name, 'wlt_vs_sessions_outcome.svg'])))
     sx = sy = 0.9
     drawing.width, drawing.height = drawing.minWidth() * sx, drawing.height * sy
     drawing.scale(sx, sy)
@@ -55,7 +56,7 @@ def make_report(system_name):
     c.showPage()
 
     # Clicks
-    drawing = svg2rlg(os.path.join('results', '_'.join([system_name, 'clicks.svg'])))
+    drawing = svg2rlg(os.path.join(sys_path, '_'.join([system_name, 'clicks.svg'])))
     drawing.rotate(-90)
     sx = sy = 0.6
     drawing.width, drawing.height = drawing.minWidth() * sx, drawing.height * sy
@@ -64,7 +65,7 @@ def make_report(system_name):
     renderPDF.draw(drawing, c, x, y, showBoundary=False)
 
     # Sessions vs. Impressions
-    drawing = svg2rlg(os.path.join('results', '_'.join([system_name, 'sessions_vs_impressions.svg'])))
+    drawing = svg2rlg(os.path.join(sys_path, '_'.join([system_name, 'sessions_vs_impressions.svg'])))
     drawing.rotate(-90)
     sx = sy = 0.6
     drawing.width, drawing.height = drawing.minWidth() * sx, drawing.height * sy
