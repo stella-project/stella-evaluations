@@ -11,8 +11,10 @@ def main():
 
     all_systems = systems.select().where(not_(systems.c.name.in_(NOT_PARTICIPATED))).execute().fetchall()
 
+    sessions_livivo = 0
     impressions_livivo = 0
     clicks_livivo = 0
+    sessions_gesis = 0
     impressions_gesis = 0
     clicks_gesis = 0
 
@@ -40,23 +42,38 @@ def main():
                 impressions_livivo += len(system_feedbacks)
 
                 for feedback in system_feedbacks:
-                    click = False
                     for doc in feedback.clicks.values():
                         if doc.get('clicked'):
-                            click = True
-                    if click:
-                        clicks_livivo += 1
+                            clicks_livivo += 1
+                # for feedback in system_feedbacks:
+                    # click = False
+                    # for doc in feedback.clicks.values():
+                    #     if doc.get('clicked'):
+                    #         click = True
+                    # if click:
+                    #     clicks_livivo += 1
+
+
 
             if system.type == 'REC':
                 impressions_gesis += len(system_feedbacks)
 
                 for feedback in system_feedbacks:
-                    click = False
                     for doc in feedback.clicks.values():
                         if doc.get('clicked'):
-                            click = True
-                    if click:
-                        clicks_gesis += 1
+                            clicks_gesis += 1
+                # for feedback in system_feedbacks:
+                    # click = False
+                    # for doc in feedback.clicks.values():
+                    #     if doc.get('clicked'):
+                    #         click = True
+                    # if click:
+                    #     clicks_gesis += 1
+
+        if system.type == 'RANK':
+            sessions_livivo = sessions_livivo + len(system_sessions)
+        if system.type == 'REC':
+            sessions_gesis = sessions_gesis + len(system_sessions)
 
 
     # print(impressions_livivo)
@@ -69,19 +86,22 @@ def main():
     df_data = [
      {'Evaluation round': 'Round 1',
       'Site': 'LIVIVO',
+      'Sessions': sessions_livivo,
       'Impressions': impressions_livivo,
       'Clicks': clicks_livivo,
       'CTR': clicks_livivo/impressions_livivo},
      {'Evaluation round': 'Round 1',
       'Site': 'GESIS',
+      'Sessions': sessions_gesis,
       'Impressions': impressions_gesis,
       'Clicks': clicks_gesis,
       'CTR': clicks_gesis / impressions_gesis}
      ]
 
-
+    sessions_livivo = 0
     impressions_livivo = 0
     clicks_livivo = 0
+    sessions_gesis = 0
     impressions_gesis = 0
     clicks_gesis = 0
 
@@ -109,23 +129,36 @@ def main():
                 impressions_livivo += len(system_feedbacks)
 
                 for feedback in system_feedbacks:
-                    click = False
                     for doc in feedback.clicks.values():
                         if doc.get('clicked'):
-                            click = True
-                    if click:
-                        clicks_livivo += 1
+                            clicks_livivo += 1
+                # for feedback in system_feedbacks:
+                #     click = False
+                #     for doc in feedback.clicks.values():
+                #         if doc.get('clicked'):
+                #             click = True
+                #     if click:
+                #         clicks_livivo += 1
 
             if system.type == 'REC':
                 impressions_gesis += len(system_feedbacks)
 
                 for feedback in system_feedbacks:
-                    click = False
                     for doc in feedback.clicks.values():
                         if doc.get('clicked'):
-                            click = True
-                    if click:
-                        clicks_gesis += 1
+                            clicks_gesis += 1
+                # for feedback in system_feedbacks:
+                #     click = False
+                #     for doc in feedback.clicks.values():
+                #         if doc.get('clicked'):
+                #             click = True
+                #     if click:
+                #         clicks_gesis += 1
+
+        if system.type == 'RANK':
+            sessions_livivo = sessions_livivo + len(system_sessions)
+        if system.type == 'REC':
+            sessions_gesis = sessions_gesis + len(system_sessions)
 
 
     # print(impressions_livivo)
@@ -137,18 +170,20 @@ def main():
 
     df_data.append({'Evaluation round': 'Round 2',
                     'Site': 'LIVIVO',
+                    'Sessions': sessions_livivo,
                     'Impressions': impressions_livivo,
                     'Clicks': clicks_livivo,
                     'CTR': clicks_livivo/impressions_livivo})
 
     df_data.append({'Evaluation round': 'Round 2',
                     'Site': 'GESIS',
+                    'Sessions': sessions_gesis,
                     'Impressions': impressions_gesis,
                     'Clicks': clicks_gesis,
                     'CTR': clicks_gesis/impressions_gesis})
 
     df = pd.DataFrame(df_data)
-    print(df[['Evaluation round', 'Site', 'Impressions', 'Clicks', 'CTR']].to_latex(index=False))
+    print(df[['Evaluation round', 'Site', 'Sessions', 'Impressions', 'Clicks', 'CTR']].to_latex(index=False, float_format="%.4f"))
 
 
 if __name__ == '__main__':
