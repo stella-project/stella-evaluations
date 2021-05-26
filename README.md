@@ -12,6 +12,18 @@
 | `scripts/pie_charts.py` | Several plots | Outputs several plots with pie charts containing Wins, Losses, and Ties. | `results/overall_stats.csv` |
 | `scripts/wlt_vs_sessions.py` | Several plots | Outputs plots with cumulative Wins, Losses, and Ties for each systems. | **Running database** |
 | `scripts/render_pdf.py` | Lab reports | Outputs lab reports for each system. | **Running database**, all previous outputs |
+| `scripts/compare_cumsum_clicks.py` |  | |  |
+| `scripts/corr_wlt_rank.py` |  | |  |
+| `scripts/ctr_at_sites.py` |  | |  |
+| `scripts/ctr_vs_queries.py` |  | |  |
+| `scripts/ctr_vs_rank.py` |  | |  |
+| `scripts/impressions_vs_queries.py` |  | |  |
+| `scripts/overall_stats_tex.py` |  | |  |
+| `scripts/reward.py` |  | |  |
+| `scripts/sign_test.py` |  | |  |
+| `scripts/system_results_by_system_name.py` |  | |  |
+| `scripts/wlt_vs_time.py` |  | |  |
+| `scripts/wlt_vs_time_rounds.py` |  | |  |
 
 ### Setup
 
