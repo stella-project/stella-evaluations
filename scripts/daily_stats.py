@@ -14,17 +14,17 @@ def main():
     all_systems = systems.select().where(not_(systems.c.name.in_(NOT_PARTICIPATED))).execute().fetchall()
     for system in all_systems:
         if system.type == 'RANK':
-            system_sessions = sessions.select(sessions.c.system_ranking == system.id).execute().fetchall()
+            system_sessions = sessions.select(sessions.c.system_ranking == system.id).where(and_(sessions.c.start > ROUND_01_START, sessions.c.end < ROUND_02_END)).execute().fetchall()
         if system.type == 'REC':
-            system_sessions = sessions.select(sessions.c.system_recommendation == system.id).execute().fetchall()
+            system_sessions = sessions.select(sessions.c.system_recommendation == system.id).where(and_(sessions.c.start > ROUND_01_START, sessions.c.end < ROUND_02_END)).execute().fetchall()
 
         if system.name in BASELINE_SYSTEMS:
             if system.type == 'RANK':
                 ranking_systems = systems.select(systems.c.type=='RANK').execute().fetchall()
-                system_sessions = sessions.select(sessions.c.system_ranking.in_([r.id for r in ranking_systems])).execute().fetchall()
+                system_sessions = sessions.select(sessions.c.system_ranking.in_([r.id for r in ranking_systems])).where(and_(sessions.c.start > ROUND_01_START, sessions.c.end < ROUND_02_END)).execute().fetchall()
             else:
                 recommendation_systems = systems.select(systems.c.type == 'REC').execute().fetchall()
-                system_sessions = sessions.select(sessions.c.system_recommendation.in_([r.id for r in recommendation_systems])).execute().fetchall()
+                system_sessions = sessions.select(sessions.c.system_recommendation.in_([r.id for r in recommendation_systems])).where(and_(sessions.c.start > ROUND_01_START, sessions.c.end < ROUND_02_END)).execute().fetchall()
 
         system_sessions_ids = [r.id for r in system_sessions]
         system_feedbacks = feedbacks.select(feedbacks.c.session_id.in_(system_sessions_ids)).execute().fetchall()
