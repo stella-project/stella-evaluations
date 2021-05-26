@@ -6,7 +6,7 @@ from matplotlib import pyplot as plt
 import seaborn as sns
 sns.set_style('darkgrid')
 
-DAILY_STATS_CSV = 'results/daily_stats.csv'
+DAILY_STATS_CSV = '../results/daily_stats.csv'
 
 df = pd.read_csv(DAILY_STATS_CSV, index_col=0)
 
