@@ -42,9 +42,13 @@ def main():
     lcd = livivo_click_distribution(ranking_feedbacks)
     lcd = dict(sorted(lcd.items(), key=lambda item: item[1], reverse=True))
 
-    pd.DataFrame.from_dict(lcd, orient='index', columns=['Number of clicks']).plot.bar()
+    df = pd.DataFrame.from_dict(lcd, orient='index', columns=['Number of clicks'])
+    df['CTR'] = df['Number of clicks'] / df['Number of clicks'].sum()
+
+    df['CTR'].plot.bar(legend=False)
+    plt.title('LIVIVO')
     plt.xlabel('SERP element')
-    plt.ylabel('Number of clicks')
+    plt.ylabel('CTR')
     plt.savefig(os.path.join(RESULT_DIR, FILENAME), bbox_inches='tight')
     plt.show()
 
