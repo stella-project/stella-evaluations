@@ -88,7 +88,7 @@ def main():
     df = df[['Win', 'Loss', 'Tie', 'Outcome', 'Sessions', 'Impressions', 'Clicks', 'CTR']]
     print(df.to_latex())
 
-    # round 1
+    # round 2
     system_names = [system.name for system in systems.select().execute().fetchall() if system.name not in NOT_PARTICIPATED]
     overall_stats = {system_name: system_stats(system_name, start=ROUND_02_START, end=ROUND_02_END) for system_name in system_names}
     df = pd.DataFrame.from_dict(overall_stats).transpose()
@@ -102,9 +102,6 @@ def main():
     df['CTR'] = df['CTR'].map('{:,.4f}'.format)
     df = df[['Win', 'Loss', 'Tie', 'Outcome', 'Sessions', 'Impressions', 'Clicks', 'CTR']]
     print(df.to_latex())
-
-
-
 
 
 if __name__ == '__main__':
