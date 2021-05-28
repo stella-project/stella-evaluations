@@ -81,7 +81,10 @@ def main():
                 df['outcome'] = df['win'] / (df['win'] + df['loss'])
                 ax = df.plot(secondary_y=['outcome'], mark_right=False)
                 lines = ax.get_lines() + ax.right_ax.get_lines()
-                ax.legend(lines, [l.get_label() for l in lines], bbox_to_anchor=(1.25, 0.35), loc='lower center')
+                ax.legend(lines,
+                          [l.get_label() for l in lines], bbox_to_anchor=(0.5, -0.25),
+                          loc='lower center',
+                          ncol=len(df.columns))
 
                 # ax.legend(loc='center left', bbox_to_anchor=(1.2, 0.5))
                 ax.set_ylabel('Total number of Wins, Losses, Ties')
@@ -143,7 +146,10 @@ def main():
                 df['outcome'] = df['win'] / (df['win'] + df['loss'])
                 ax = df.plot(secondary_y=['outcome'], mark_right=False)
                 lines = ax.get_lines() + ax.right_ax.get_lines()
-                ax.legend(lines, [l.get_label() for l in lines], bbox_to_anchor=(1.25, 0.35), loc='lower center')
+                ax.legend(lines,
+                          [l.get_label() for l in lines], bbox_to_anchor=(0.5, -0.25),
+                          loc='lower center',
+                          ncol=len(df.columns))
 
                 # ax.legend(loc='center left', bbox_to_anchor=(1.2, 0.5))
                 ax.set_ylabel('Total number of Wins, Losses, Ties')
