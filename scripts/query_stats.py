@@ -5,6 +5,7 @@ import pandas as pd
 from matplotlib import pyplot as plt
 import seaborn as sns
 sns.set_style('darkgrid')
+from tqdm import tqdm
 
 
 def main():
@@ -20,17 +21,17 @@ def main():
 
     q_len = []
 
-    for f in ranking_feedbacks:
-        try:
-            q_str = results.select(results.c.feedback_id == f.id).execute().first().q
-            q_str = q_str.replace('AND', '')
-            q_str = q_str.replace('OR', '')
-            q_str = q_str.replace('NOT', '')
-            q_len.append(len(q_str.split()))
-        except Exception as e:
-            print(e)
-
-    pass
+    with tqdm(total=len(ranking_feedbacks)) as pbar:
+        for f in ranking_feedbacks:
+            try:
+                q_str = results.select(results.c.feedback_id == f.id).execute().first().q
+                q_str = q_str.replace('AND', '')
+                q_str = q_str.replace('OR', '')
+                q_str = q_str.replace('NOT', '')
+                q_len.append(len(q_str.split()))
+            except Exception as e:
+                print(e)
+            pbar.update()
 
 
 if __name__ == '__main__':
