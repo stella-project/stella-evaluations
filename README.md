@@ -24,6 +24,8 @@
 | `scripts/system_results_by_system_name.py` |  | |  |
 | `scripts/wlt_vs_time.py` |  | |  |
 | `scripts/wlt_vs_time_rounds.py` |  | |  |
+| `scripts/query_stats_dump.py` |  | |  |
+| `scripts/query_stats_eval.py` |  | |  |
 
 ### Setup
 
