@@ -21,9 +21,11 @@ rankers = [system.name for system in systems.select(and_(not_(systems.c.name.in_
 
 df.loc[[r + '_clicks' for r in rankers]].fillna(0).sum(axis=0).plot.bar(figsize=(14,7))
 df.loc[[r + '_clicks' for r in rankers]].fillna(0).sum(axis=0).expanding().mean().plot(color='g')
+plt.xticks(rotation='vertical')
 plt.show()
 
 df.loc[[r + '_clicks' for r in recommenders]].fillna(0).sum(axis=0).plot.bar(figsize=(14,7))
 df.loc[[r + '_clicks' for r in recommenders]].fillna(0).sum(axis=0).expanding().mean().plot(color='g')
+plt.xticks(rotation='vertical')
 plt.show()
 
