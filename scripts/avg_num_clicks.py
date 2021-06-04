@@ -29,3 +29,11 @@ df.loc[[r + '_clicks' for r in recommenders]].fillna(0).sum(axis=0).expanding().
 plt.xticks(rotation='vertical')
 plt.show()
 
+# alternative without bars
+df.loc[[r + '_clicks' for r in rankers]].fillna(0).sum(axis=0).plot(figsize=(14,7))
+df.loc[[r + '_clicks' for r in rankers]].fillna(0).sum(axis=0).expanding().mean().plot(color='g')
+plt.show()
+
+df.loc[[r + '_clicks' for r in recommenders]].fillna(0).sum(axis=0).plot(figsize=(14,7))
+df.loc[[r + '_clicks' for r in recommenders]].fillna(0).sum(axis=0).expanding().mean().plot(color='g')
+plt.show()
